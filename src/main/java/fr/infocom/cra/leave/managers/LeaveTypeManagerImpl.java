@@ -33,5 +33,4 @@ public class LeaveTypeManagerImpl implements LeaveTypeManager {
 	public void delete(LeaveType leaveType) {
 		leaveTypeDAO.delete(leaveType);
 	}
-
 }
