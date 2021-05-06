@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.infocom.cra.leave.exceptions.LeaveRequestNotFoundException;
 import fr.infocom.cra.leave.managers.LeaveRequestManager;
+import fr.infocom.cra.leave.models.Collaborator;
 import fr.infocom.cra.leave.models.LeaveRequest;
+import fr.infocom.cra.leave.proxies.CollaboratorProxy;
 
 /**
  * @author ibenhsine
@@ -27,6 +29,9 @@ public class LeaveRequestController {
 	
 	@Autowired
 	private LeaveRequestManager leaveRequestManager;
+	
+	@Autowired
+	private CollaboratorProxy collaboratorProxy;
 
 	/**
 	 * This Get method returns the list of all leave requests in your database
@@ -52,8 +57,8 @@ public class LeaveRequestController {
 
 		Optional<LeaveRequest> leaveRequest = leaveRequestManager.findById(id);
 
-//		Collaborator collaborator = collaboraterProxy.getOneCollaboratorById(leaveRequest.get().getCollaboraterId());
-//		System.out.println(collaborator.toString());
+		Collaborator collaborator = collaboratorProxy.getOneCollaboratorById(leaveRequest.get().getCollaboraterId());
+		System.out.println(collaborator.toString());
 		if (!leaveRequest.isPresent())
 			throw new LeaveRequestNotFoundException(
 					"La demande de congé correspondante à l'id " + id + " n'existe pas.");
